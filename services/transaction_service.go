@@ -81,13 +81,14 @@ func (svc *TransactionService) Credit(req models.CreditRequest) models.ResponseV
 	}
 	tx.Commit()
 
+	newBalance := user.Balance + req.Amount
 	resp := models.ResponseV2{
 		Code:    http.StatusOK,
 		Status:  "success",
 		Message: "",
 		Data: models.CreditResponse{
 			TransactionID: transaction.ID,
-			NewBalance:    user.Balance,
+			NewBalance:    newBalance,
 		},
 	}
 
